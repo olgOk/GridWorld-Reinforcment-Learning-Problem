@@ -14,3 +14,4 @@ that is, the agent will go where it intends to go. For instance, when the agent 
 action up at (2, 0), it will land in (1, 0) rather than (2, 1) or elsewhere. (We will add uncertainty
 in out second implementation) However, it the agents hit the wall, it will remain at the same position.
 
+![Grid](/img/rl.png)

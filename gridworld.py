@@ -46,3 +46,32 @@ def nxtPosition(self, action):
           if nxtState != (1, 1):
             return nxtState
       return self.state
+    
+    
+#value iteration
+def play(self, rounds=10):
+        i = 0
+        while i < rounds:
+            # to the end of game back propagate reward
+            if self.State.isEnd:
+                # back propagate
+                reward = self.State.giveReward()
+                # explicitly assign end state to reward values
+                self.state_values[self.State.state] = reward  # this is optional
+                print("Game End Reward", reward)
+                for s in reversed(self.states):
+                    reward = self.state_values[s] + self.lr * (reward - self.state_values[s])
+                    self.state_values[s] = round(reward, 3)
+                self.reset()
+                i += 1
+            else:
+                action = self.chooseAction()
+                # append trace
+                self.states.append(self.State.nxtPosition(action))
+                print("current position {} action {}".format(self.State.state, action))
+                # by taking the action, it reaches the next state
+                self.State = self.takeAction(action)
+                # mark is end
+                self.State.isEndFunc()
+                print("nxt state", self.State.state)
+                print("---------------------")
